@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유투브 반응형 삽입</title>
+    <style>
+        section + section {
+            margin-top: 60px;
+        }
+        /* css방식 */
+        .video-wrap {
+            width: 100%;
+            height: 0;
+            padding-top: 56.25%;/* 16:9비율 = 100:56.25 */
+            box-sizing: border-box;
+            position: relative;
+            background: #ccc;
+        }
+        .video-wrap iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        /* sj방식 */
+        .video-wrap-js {
+            font-size: 0;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>반응형 유투브 삽입(iframe)</h1>
+    <section>
+        <h2>예제1. css만으로 구현</h2>
+        <div class="video-wrap">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/VbKYxsWK_mE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </section>
+    <section>
+        <h2>예제2. javascript로 구현</h2>
+        <div class="video-wrap-js">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/VbKYxsWK_mE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </section>
+    <script>
+        //.video-wrap-js 높이값 16:9 비율에 맞게 세팅
+        function videoResize() {
+            const $videoWrap = document.querySelector('.video-wrap-js');
+            const $videoWrapH = $videoWrap.offsetWidth * 0.5625 + 'px';//16:9 비율
+            $videoWrap.style.height = $videoWrapH;
+        }
+        videoResize();
+
+        //브라우저 리사이즈 시 videoResize 함수 재실행
+        window.addEventListener("resize", function() {
+            videoResize();
+        })
+    </script>
+</body>
+</html>
